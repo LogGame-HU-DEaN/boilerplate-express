@@ -1,6 +1,12 @@
 {
   "name": "fcc-learn-node-with-express",
-  "version": "0.1.0",
+  "author": "Dániel Mózer",
+  "keywords": [
+    "freecodecamp",
+    "express",
+    "learning"
+  ],
+  "version": "1.0.0",
   "dependencies": {
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
@@ -10,6 +16,6 @@
   },
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node --watch server.js"
   }
 }
