@@ -1,4 +1,5 @@
 require('dotenv').config()
+var bodyParser = require('body-parser');
 let express = require('express');
 let app = express();
 
@@ -7,6 +8,14 @@ console.log("Hello World");
 function middleware(req, res, next) {
   console.log(req.method + ' ' + req.path + ' - ' + req.ip);
     next();
+}
+
+function postName(req, res) {
+  var firstName = req.body.first;
+  var lastName = req.body.last;
+  res.json({
+    name: `${firstName} ${lastName}`
+  });
 }
 
 function currentTime(req, res, next) {
@@ -41,9 +50,20 @@ function timeJson(req, res) {
     });
 }
 
+function name(reg, res) {
+  var firstName = reg.query.first;
+  var lastName = reg.query.last;
+  res.json({
+    name: `${firstName} ${lastName}`
+  });
+}
+
 app.use(middleware);
+app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/now', currentTime, timeJson);
 app.get('/:word/echo', echoWord);
+app.get('/name', name);
+app.post('/name', postName);
 app.get('/', helloExpress);
 app.use('/public', express.static(__dirname + '/public'));
 app.get('/json', helloJson);
